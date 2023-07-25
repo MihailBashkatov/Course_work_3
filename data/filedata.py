@@ -1,0 +1,1 @@
+FILEDATA = 'data/operations.json'
