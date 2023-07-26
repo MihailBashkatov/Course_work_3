@@ -1,16 +1,19 @@
 import json
 from datetime import datetime
-
 from data.class_user import User
 
 
 def load_file(filename):
     """ Return json file in py. format"""
+
     with open(filename, 'r', encoding='UTF8') as file:
-       python_file = file.read()
+        python_file = file.read()
     return json.loads(python_file)
 
-def dict_consistency(database):
+
+def dict_consistency(database: list) -> list:
+    """ Return formatted dicts list, where all dicts have the same keys"""
+
     new_dict = []
     for element in database:
         if not element.get('id'):
@@ -31,15 +34,20 @@ def dict_consistency(database):
     return new_dict
 
 
-def objects_file(formatted_dict):
+def objects_file(formatted_dict: list) -> list:
+    """ Return objects list for class User"""
+
     objects_list = []
     for element in formatted_dict:
-        user_list = User(element['id'], element['state'], element['date'], element['operationAmount'], element['description'], element['from'], element['to'])
+        user_list = User(element['id'], element['state'], element['date'], element['operationAmount'],
+                         element['description'], element['from'], element['to'])
         objects_list.append(user_list)
     return objects_list
 
 
-def action_date(gen_object):
+def action_date(gen_object: list) -> list:
+    """ Return formatted dates as yyyy-mm-dd"""
+
     element_list = []
     for element in gen_object:
         element_date = element.date.split('T')[0].split('-')[::-1]
@@ -49,7 +57,8 @@ def action_date(gen_object):
     return element_list
 
 
-def order_actions_date(base_date):
+def order_actions_date(base_date: list) -> list:
+    """ Return existing dates from objects list with format 'dd-mm-yyyy"""
     new_order = []
     for element in base_date:
         if element.date == '':
@@ -61,11 +70,15 @@ def order_actions_date(base_date):
     return new_order
 
 
-def order_actions_objets(order_date, base_date):
+def order_actions_objets(order_date: list, base_date: list) -> list:
+    """ Return sorted objects by dates"""
+
+    # Creating a dict, where key is index from array and value is array's value
     order_dict = {}
     for index in range(len(order_date)):
         order_dict[index] = order_date[index]
 
+    # Replacing values in dict to objects, using date as match
     for element in base_date:
         for k, v in order_dict.items():
             if element.date == v:
@@ -73,11 +86,12 @@ def order_actions_objets(order_date, base_date):
     return list(order_dict.values())
 
 
-def get_executed(order_object):
+def get_executed(order_object: list) -> list:
+    """ Return five last executed operations"""
+
     base_data = order_object[::-1]
     executed_list = []
     for element in base_data:
         if element.state == 'EXECUTED':
             executed_list.append(element)
     return executed_list[0:5]
-
