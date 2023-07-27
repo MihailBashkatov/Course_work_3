@@ -59,6 +59,7 @@ def action_date(gen_object: list) -> list:
 
 def order_actions_date(base_date: list) -> list:
     """ Return existing dates from objects list with format 'dd-mm-yyyy"""
+
     new_order = []
     for element in base_date:
         if element.date == '':
@@ -68,6 +69,7 @@ def order_actions_date(base_date: list) -> list:
 
     sorted(new_order, key=lambda date: datetime.strptime(date, "%d-%m-%Y"))
     return new_order
+
 
 def order_actions_objets(order_date: list, base_date: list) -> list:
     """ Return sorted objects by dates"""
