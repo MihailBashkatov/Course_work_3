@@ -4,3 +4,4 @@ venv
 *.log
 .idea/
 __pycache__/
+/coverage_re/
