@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-from data.class_user import User
+from src.class_user import User
 
 
 def load_file(filename):
@@ -66,9 +66,8 @@ def order_actions_date(base_date: list) -> list:
         else:
             new_order.append(element.date)
 
-    new_order.sort(key=lambda date: datetime.strptime(date, "%d-%m-%Y"))
+    sorted(new_order, key=lambda date: datetime.strptime(date, "%d-%m-%Y"))
     return new_order
-
 
 def order_actions_objets(order_date: list, base_date: list) -> list:
     """ Return sorted objects by dates"""
