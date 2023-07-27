@@ -73,17 +73,13 @@ def order_actions_date(base_date: list) -> list:
 def order_actions_objets(order_date: list, base_date: list) -> list:
     """ Return sorted objects by dates"""
 
-    # Creating a dict, where key is index from array and value is array's value
-    order_dict = {}
-    for index in range(len(order_date)):
-        order_dict[index] = order_date[index]
-
-    # Replacing values in dict to objects, using date as match
+    # Replacing values in array to objects, using date as a match
     for element in base_date:
-        for k, v in order_dict.items():
-            if element.date == v:
-                order_dict[k] = element
-    return list(order_dict.values())
+        for index in range(len(order_date)):
+            if element.date == order_date[index]:
+                order_date[index] = element
+
+    return order_date
 
 
 def get_executed(order_object: list) -> list:
