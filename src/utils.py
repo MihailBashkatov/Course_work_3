@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-from data.class_user import User
+from src.class_user import User
 
 
 def load_file(filename):
@@ -59,6 +59,7 @@ def action_date(gen_object: list) -> list:
 
 def order_actions_date(base_date: list) -> list:
     """ Return existing dates from objects list with format 'dd-mm-yyyy"""
+
     new_order = []
     for element in base_date:
         if element.date == '':
@@ -66,24 +67,20 @@ def order_actions_date(base_date: list) -> list:
         else:
             new_order.append(element.date)
 
-    new_order.sort(key=lambda date: datetime.strptime(date, "%d-%m-%Y"))
+    sorted(new_order, key=lambda date: datetime.strptime(date, "%d-%m-%Y"))
     return new_order
 
 
 def order_actions_objets(order_date: list, base_date: list) -> list:
     """ Return sorted objects by dates"""
 
-    # Creating a dict, where key is index from array and value is array's value
-    order_dict = {}
-    for index in range(len(order_date)):
-        order_dict[index] = order_date[index]
-
-    # Replacing values in dict to objects, using date as match
+    # Replacing values in array to objects, using date as a match
     for element in base_date:
-        for k, v in order_dict.items():
-            if element.date == v:
-                order_dict[k] = element
-    return list(order_dict.values())
+        for index in range(len(order_date)):
+            if element.date == order_date[index]:
+                order_date[index] = element
+
+    return order_date
 
 
 def get_executed(order_object: list) -> list:

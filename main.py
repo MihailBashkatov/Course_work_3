@@ -1,5 +1,5 @@
 from data.filedata import FILEDATA
-from utils import *
+from src.utils import *
 
 
 base_data = load_file(FILEDATA)
@@ -14,4 +14,3 @@ final_result = get_executed(order_object_by_date)
 print("*" * 45)
 for transfer in final_result:
     print(transfer)
-
