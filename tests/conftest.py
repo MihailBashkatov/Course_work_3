@@ -5,6 +5,8 @@ from src.utils import *
 
 @pytest.fixture
 def final_result():
+    """ Returning final 5 results, using test json file """
+
     base_data = load_file(FILEDATA_TESTS)
     dict_formatted = dict_consistency(base_data)
     gen_objects = objects_file(dict_formatted)
